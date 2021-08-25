@@ -1,0 +1,11 @@
+{% extends "note/base.html" %}
+{% block content %}
+  <div class="container">
+  {% for note in notes %}
+        <h4>{{note.title}}-{{note.note_date|date:"F d Y"}}</h4>
+        <p>{{note.notes}}</p>
+    
+  {% endfor %}
+  <a class="btn btn-warning" href="{% url 'add' %}" role="button">Notes</a>
+  </div>
+{% endblock %}

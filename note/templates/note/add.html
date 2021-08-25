@@ -1,0 +1,17 @@
+{% extends 'note/base.html' %}
+{% block content %}
+  <div class="container">
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="exampleInputEmail1">Title</label>
+        <input  class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Notes Title">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">ADD</button>
+    </form>
+  </div>
+{% endblock %}
