@@ -22,3 +22,9 @@ def add(request):
     form = notesupdateform()
   context = {'form':form}
   return render(request,'note/add.html',context)
+
+def delete(request,note_id):
+  ele = notes.objects.get(id=note_id)
+  ele.delete()
+  messages.info(request,"Notes Removed")
+  return redirect('home')

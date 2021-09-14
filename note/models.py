@@ -4,7 +4,7 @@ from django.utils import timezone
 # Create your models here.
 class notes(models.Model):
   title = models.CharField(max_length=200)
-  note_date = models.DateTimeField(null=True)
+  note_date = models.DateTimeField(default=timezone.now() ,null=True)
   notes = models.TextField()
 
   def __str__(self):
