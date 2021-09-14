@@ -2,10 +2,19 @@
 {% block content %}
   <div class="container">
   {% for note in notes %}
+    {% if note.note_date == null %}
+         <button class="btn btn-danger" style="float:right">Delete</button>
+        <h4>{{note.title}}</h4>
+        <p>{{note.notes}}</p>
+    {% else %}
+         <button class="btn btn-danger" style="float:right">Delete</button>
         <h4>{{note.title}}-{{note.note_date|date:"F d Y"}}</h4>
         <p>{{note.notes}}</p>
+    {% endif %}
     
   {% endfor %}
+  <p>
   <a class="btn btn-warning" href="{% url 'add' %}" role="button">Notes</a>
+  </p>
   </div>
 {% endblock %}
