@@ -1,29 +1,20 @@
 {% extends "note/base.html" %}
 {% block content %}
   <div>
-    {% if messages %}
     {% for message in messages %}
       <div class="alert alert-info">
         <strong>{{message}}</strong>
       </div>
     {% endfor %}
-    {% endif %}
   </div>
   <div class="container">
   {% for note in notes %}
-    {% if note.note_date == null %}
       <form action="del/{{note.id}}" method="POST">
         {% csrf_token %}
-         <button class="btn btn-danger" type="submit" style="float:right" onclick="/del/{{note.id}}">Delete</button>
+       <input class="btn btn-danger" type="submit" name="Delete" value="Delete" style="float:right">
       </form>
-        <h4>{{note.title}}</h4>
-        <p>{{note.notes}}</p>
-    {% else %}
-         <button class="btn btn-danger" style="float:right">Delete</button>
         <h4>{{note.title}}-{{note.note_date|date:"F d Y"}}</h4>
         <p>{{note.notes}}</p>
-    {% endif %}
-    
   {% endfor %}
   <p>
   <a class="btn btn-warning" href="{% url 'add' %}" role="button">Notes</a>
