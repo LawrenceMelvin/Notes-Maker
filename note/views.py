@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import authenticate,login,logout
 from .models import notes
 from django.http import HttpResponse
 from .forms import notesupdateform,createuserform
@@ -12,17 +12,19 @@ def registration(request):
     form = createuserform(request.POST)
     if form.is_valid():
       form.save()
-      #user = form.cleaned_data.get(username)
       messages.success(request,'Account is created ')
       return redirect('login')
+  else:
+    form = createuserform()
   context={'form':form}
   return render(request,'note/register.html',context)
 
 def loginpage(request):
   if request.method == 'POST':
-    print(request.POST)
     username=request.POST.get('username')
     password=request.POST.get('password')
+    print(username)
+    print(password)
     user = authenticate(request,username=username,password=password)
     if user is not None:
       login(request,user)
@@ -31,6 +33,10 @@ def loginpage(request):
       messages.info(request,'Username or Password incorrect')
   context={}
   return render(request,'note/login.html',context)
+
+def logoutview(request):
+  logout(request)
+  return redirect('login')
 
 def index(request):
   context ={'notes':notes.objects.all(),}
