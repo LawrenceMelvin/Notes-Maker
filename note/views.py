@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 from .models import notes
 from django.http import HttpResponse
 from .forms import notesupdateform,createuserform
@@ -27,6 +28,7 @@ def loginpage(request):
     print(password)
     user = authenticate(request,username=username,password=password)
     if user is not None:
+      print("login")
       login(request,user)
       return redirect('home') 
     else:
@@ -38,10 +40,12 @@ def logoutview(request):
   logout(request)
   return redirect('login')
 
+@login_required(login_url='login')
 def index(request):
   context ={'notes':notes.objects.all(),}
   return render(request,'note/home.html',context)
 
+@login_required(login_url='login')
 def add(request):
   form = notesupdateform()
   if request.method == 'POST':
@@ -57,6 +61,7 @@ def add(request):
   context = {'form':form}
   return render(request,'note/add.html',context)
 
+@login_required(login_url='login')
 def delete(request,note_id):
   if request.method == 'POST':
     ele = notes.objects.get(id=note_id)
