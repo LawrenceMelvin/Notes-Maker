@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -122,5 +123,6 @@ STATIC_URL = '/static/'
 ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = '*'
 
-LOGIN_REDIRECT_URL = 'home'
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/home/'
 
